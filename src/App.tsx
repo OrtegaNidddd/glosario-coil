@@ -5,6 +5,7 @@ import { IngredientsView } from './components/IngredientsView'
 import { TechniquesView } from './components/TechniquesView'
 import { GlossaryView } from './components/GlossaryView'
 import { MaridajesView } from './components/MaridajesView'
+import { TerminosView } from './components/TerminosView'
 import { getTerms } from './services/termsService'
 import { hasSupabaseCredentials } from './services/supabaseClient'
 import type { GlossaryTerm } from './types/term'
@@ -89,6 +90,7 @@ function App() {
       if (activeSection === 'tecnicas') return item.category === 'Tecnica'
       if (activeSection === 'ingredientes') return item.category === 'Ingrediente'
       if (activeSection === 'maridajes') return item.category === 'Maridaje'
+      if (activeSection === 'terminos') return item.category === 'Termino'
       return true
     })
 
@@ -102,7 +104,17 @@ function App() {
 
   function handleTermCreated(newTerm: GlossaryTerm) {
     setTerms((previous) => [newTerm, ...previous])
-    setActiveSection('glosario')
+    if (newTerm.category === 'Termino') {
+      setActiveSection('terminos')
+    } else if (newTerm.category === 'Tecnica') {
+      setActiveSection('tecnicas')
+    } else if (newTerm.category === 'Ingrediente') {
+      setActiveSection('ingredientes')
+    } else if (newTerm.category === 'Maridaje') {
+      setActiveSection('maridajes')
+    } else {
+      setActiveSection('glosario')
+    }
     setSearchQuery('')
     setLoadError(null)
   }
@@ -124,6 +136,7 @@ function App() {
       {activeSection === 'tecnicas' ? <TechniquesView items={filteredItems} /> : null}
       {activeSection === 'ingredientes' ? <IngredientsView items={filteredItems} /> : null}
       {activeSection === 'maridajes' ? <MaridajesView items={filteredItems} /> : null}
+      {activeSection === 'terminos' ? <TerminosView items={filteredItems} /> : null}
     </AppShell>
   )
 }
