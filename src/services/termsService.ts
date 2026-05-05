@@ -7,7 +7,7 @@ type DbTerm = {
   id: string
   title: string
   description: string
-  category: 'tecnica' | 'ingrediente' | 'maridaje'
+  category: 'tecnica' | 'ingrediente' | 'maridaje' | 'termino'
   image_label: string | null
   image_url: string | null
   created_at: string
@@ -28,17 +28,27 @@ function mapDbTerm(term: DbTerm): GlossaryTerm {
     id: term.id,
     title: term.title,
     description: term.description,
-    category: term.category === 'tecnica' ? 'Tecnica' : term.category === 'ingrediente' ? 'Ingrediente' : 'Maridaje',
+    category:
+      term.category === 'tecnica'
+        ? 'Tecnica'
+        : term.category === 'ingrediente'
+          ? 'Ingrediente'
+          : term.category === 'maridaje'
+            ? 'Maridaje'
+            : 'Termino',
     imageLabel: term.image_label ?? undefined,
     imageUrl: term.image_url ?? undefined,
     createdAt: term.created_at,
   }
 }
 
-function mapCategoryForDb(category: GlossaryTerm['category']): 'tecnica' | 'ingrediente' | 'maridaje' {
+function mapCategoryForDb(
+  category: GlossaryTerm['category'],
+): 'tecnica' | 'ingrediente' | 'maridaje' | 'termino' {
   if (category === 'Tecnica') return 'tecnica'
   if (category === 'Ingrediente') return 'ingrediente'
-  return 'maridaje'
+  if (category === 'Maridaje') return 'maridaje'
+  return 'termino'
 }
 
 export async function getTerms(): Promise<GlossaryTerm[]> {
@@ -81,11 +91,11 @@ export async function createTerm(input: NewGlossaryTermInput): Promise<GlossaryT
     const msg = error.message ?? String(error)
     if (msg.includes('check constraint') || msg.includes('glossary_terms_category_check')) {
       throw new Error(
-        'No se pudo crear el término porque la categoría "Maridaje" no está permitida por la restricción de la tabla.\n\n' +
+        'No se pudo crear el término porque la categoría "Termino" no está permitida por la restricción de la tabla.\n\n' +
           'Solución rápida (ejecutar en el SQL editor de Supabase):\n' +
           "ALTER TABLE glossary_terms DROP CONSTRAINT IF EXISTS glossary_terms_category_check;\n" +
-          "ALTER TABLE glossary_terms ADD CONSTRAINT glossary_terms_category_check CHECK (category IN ('tecnica','ingrediente','maridaje'));\n\n" +
-          'O bien, crea el término con categoría "Tecnica" o "Ingrediente" hasta actualizar la restricción.'
+          "ALTER TABLE glossary_terms ADD CONSTRAINT glossary_terms_category_check CHECK (category IN ('tecnica','ingrediente','maridaje','termino'));\n\n" +
+          'O bien, crea el término con otra categoría hasta actualizar la restricción.'
       )
     }
 

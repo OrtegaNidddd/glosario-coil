@@ -1,4 +1,4 @@
-export type TermCategory = 'Tecnica' | 'Ingrediente' | 'Maridaje'
+export type TermCategory = 'Tecnica' | 'Ingrediente' | 'Maridaje' | 'Termino'
 
 export type GlossaryTerm = {
   id: string
