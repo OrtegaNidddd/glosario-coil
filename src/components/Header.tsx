@@ -32,9 +32,9 @@ export function Header({ searchQuery, onSearchQueryChange, onOpenNewTermModal }:
         <button
           type="button"
           onClick={onOpenNewTermModal}
-          className="rounded-lg bg-[#83111a] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#a81724]"
+          className="rounded-full bg-[#83111a] p-3 text-sm font-semibold text-white transition hover:bg-[#a81724]"
         >
-          Nuevo Termino
+          +
         </button>
         <img
           src={coilMxLogo}
