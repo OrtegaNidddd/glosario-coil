@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    color: #473d35;
+    background:
+      radial-gradient(circle at top left, rgba(173, 124, 56, 0.2), transparent 42%),
+      linear-gradient(180deg, #f1e9db 0%, #ede2d1 100%);
+  }
+}
