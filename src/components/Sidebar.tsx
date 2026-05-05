@@ -6,6 +6,7 @@ const navItems = [
   { label: 'Tecnicas', section: 'tecnicas' },
   { label: 'Ingredientes', section: 'ingredientes' },
   { label: 'Maridajes', section: 'maridajes' },
+  { label: 'Termino', section: 'terminos' },
 ]
 
 type SidebarProps = {
@@ -15,7 +16,7 @@ type SidebarProps = {
 
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   return (
-    <aside className="flex flex-col justify-between gap-4 border-b border-[#e2d7c6] bg-[#f3ecde] px-4 py-5 lg:border-r lg:border-b-0">
+    <aside className="flex flex-col justify-start gap-4 border-b border-[#e2d7c6] bg-[#f3ecde] px-4 py-5 lg:border-r lg:border-b-0">
       <div>
         <h1 className="font-['Fraunces'] text-[1.95rem] leading-[1.03] font-bold tracking-[-0.02em] text-[#83111a]">
           Sabor y Cultura
@@ -27,7 +28,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         </div>
       </div>
 
-      <nav aria-label="Navegacion principal" className="grid gap-2 md:grid-cols-3 lg:grid-cols-1">
+      <nav aria-label="Navegacion principal" className="mt-4 grid gap-2 md:grid-cols-3 lg:grid-cols-1">
         {navItems.map((item) => (
           <button
             key={item.label}

@@ -5,7 +5,7 @@ import { Sidebar } from './Sidebar'
 import { NewTermModal } from './NewTermModal'
 import type { GlossaryTerm } from '../types/term'
 
-export type SectionId = 'glosario' | 'tecnicas' | 'ingredientes' | 'maridajes'
+export type SectionId = 'glosario' | 'tecnicas' | 'ingredientes' | 'maridajes' | 'terminos'
 
 type AppShellProps = {
   activeSection: SectionId
