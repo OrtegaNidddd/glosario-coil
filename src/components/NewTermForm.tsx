@@ -19,7 +19,7 @@ type FormState = {
 const initialState: FormState = {
   title: '',
   description: '',
-  category: 'Tecnica',
+  category: 'Termino',
   imageLabel: '',
   imageFile: null,
   imagePreview: null,
@@ -116,6 +116,7 @@ export function NewTermForm({ onCreated }: NewTermFormProps) {
             }
             className="rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
           >
+            <option value="Termino">Termino</option>
             <option value="Tecnica">Tecnica</option>
             <option value="Ingrediente">Ingrediente</option>
             <option value="Maridaje">Maridaje</option>
