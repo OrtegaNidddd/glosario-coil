@@ -26,3 +26,4 @@ dist-ssr
 
 supabase/*
 backup_supabase.sql
+.github
