@@ -16,4 +16,5 @@ export type NewGlossaryTermInput = {
   category: TermCategory
   imageLabel?: string
   imageFile?: File
+  imageUrl?: string | null
 }

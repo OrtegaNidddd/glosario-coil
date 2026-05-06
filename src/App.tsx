@@ -119,6 +119,11 @@ function App() {
     setLoadError(null)
   }
 
+  function handleTermUpdated(updatedTerm: GlossaryTerm) {
+    setTerms((previous) => previous.map((term) => (term.id === updatedTerm.id ? updatedTerm : term)))
+    setLoadError(null)
+  }
+
   return (
     <AppShell
       activeSection={activeSection}
@@ -131,7 +136,7 @@ function App() {
       onTermCreated={handleTermCreated}
     >
       {activeSection === 'glosario' ? (
-        <GlossaryView items={filteredItems} infoMessage={loadError} />
+        <GlossaryView items={filteredItems} infoMessage={loadError} onTermUpdated={handleTermUpdated} />
       ) : null}
       {activeSection === 'tecnicas' ? <TechniquesView items={filteredItems} /> : null}
       {activeSection === 'ingredientes' ? <IngredientsView items={filteredItems} /> : null}

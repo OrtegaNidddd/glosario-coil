@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { GlossaryCard } from './GlossaryCard'
 import { Modal } from './Modal'
+import { NewTermModal } from './NewTermModal'
 import type { GlossaryTerm, TermCategory } from '../types/term'
 
 type GlossaryViewProps = {
   items: GlossaryTerm[]
   infoMessage?: string | null
+  onTermUpdated: (term: GlossaryTerm) => void
 }
 
 type SelectedTerm = GlossaryTerm | null
@@ -38,12 +40,27 @@ function groupAndSortTerms(items: GlossaryTerm[]): Record<TermCategory, Glossary
   return grouped
 }
 
-export function GlossaryView({ items, infoMessage }: GlossaryViewProps) {
+function canEditTerm(term: GlossaryTerm) {
+  return !term.id.startsWith('fallback-')
+}
+
+export function GlossaryView({ items, infoMessage, onTermUpdated }: GlossaryViewProps) {
   const [selectedTerm, setSelectedTerm] = useState<SelectedTerm>(null)
+  const [editingTerm, setEditingTerm] = useState<SelectedTerm>(null)
   const grouped = groupAndSortTerms(items)
   const categories = (Object.keys(CATEGORY_CONFIG) as TermCategory[]).sort(
     (a, b) => CATEGORY_CONFIG[a].order - CATEGORY_CONFIG[b].order,
   )
+
+  function handleOpenEditor(term: GlossaryTerm) {
+    setEditingTerm(term)
+  }
+
+  function handleTermUpdated(updatedTerm: GlossaryTerm) {
+    setEditingTerm(null)
+    setSelectedTerm((current) => (current?.id === updatedTerm.id ? updatedTerm : current))
+    onTermUpdated(updatedTerm)
+  }
 
   return (
     <section>
@@ -95,6 +112,7 @@ export function GlossaryView({ items, infoMessage }: GlossaryViewProps) {
                       imageLabel={item.imageLabel}
                       imageUrl={item.imageUrl}
                       onClick={() => setSelectedTerm(item)}
+                      onEdit={canEditTerm(item) ? () => handleOpenEditor(item) : undefined}
                     />
                   ))}
                 </div>
@@ -131,20 +149,38 @@ export function GlossaryView({ items, infoMessage }: GlossaryViewProps) {
               >
                 {selectedTerm.category}
               </span>
+              {canEditTerm(selectedTerm) ? (
+                <button
+                  type="button"
+                  onClick={() => setEditingTerm(selectedTerm)}
+                  className="inline-flex items-center gap-1 rounded-full border border-[#e2d7c6] bg-[#fff9ee] px-3 py-1 text-sm font-semibold text-[#83111a] transition hover:bg-[#f7ead7]"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 4H7a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-4m-1.5-9.5a2.121 2.121 0 113 3L12 16l-4 1 1-4 9.5-9.5z"
+                    />
+                  </svg>
+                  Editar
+                </button>
+              ) : null}
             </div>
 
             <p className="whitespace-pre-wrap text-[1rem] leading-[1.6] text-[#63574c]">
               {selectedTerm.description}
             </p>
-
-            {selectedTerm.imageLabel && (
-              <p className="text-sm italic text-[#8f7f69]">
-                <strong>Etiqueta:</strong> {selectedTerm.imageLabel}
-              </p>
-            )}
           </div>
         )}
       </Modal>
+
+      <NewTermModal
+        isOpen={!!editingTerm}
+        onClose={() => setEditingTerm(null)}
+        termToEdit={editingTerm}
+        onTermUpdated={handleTermUpdated}
+      />
     </section>
   )
 }

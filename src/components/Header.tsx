@@ -43,12 +43,12 @@ export function Header({ searchQuery, onSearchQueryChange, onOpenNewTermModal }:
         <img
           src={coilMxLogo}
           alt="Logo Mexico"
-          className="h-14 lg:h-16 w-auto object-contain shrink-0"
+          className="h-16 lg:h-20 w-auto object-contain shrink-0"
         />
         <img 
           src={fescLogo} 
           alt="Logo FESC" 
-          className="h-14 lg:h-16 w-auto object-contain shrink-0" 
+          className="h-16 lg:h-20 w-auto object-contain shrink-0" 
         />
       </div>
     </header>
