@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# COIL Glosario
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para explorar y gestionar un glosario culinario con categorías como técnicas, ingredientes, maridajes y términos. La interfaz está construida con React, TypeScript y Vite, y usa Supabase para persistencia de datos e imágenes.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Vista principal del glosario con tarjetas agrupadas por categoría.
+- Búsqueda de términos.
+- Modal de detalle para ver la información completa de cada entrada.
+- Creación y edición de términos.
+- Carga de imágenes para cada término.
+- Sidebar y encabezado adaptados a escritorio y móvil.
 
-## React Compiler
+## Requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 20 o superior.
+- Una cuenta/proyecto de Supabase con la tabla `glossary_terms` y el bucket de imágenes configurados.
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Variables de entorno
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Crea un archivo `.env.local` con estas variables:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+VITE_SUPABASE_URL=tu_url_de_supabase
+VITE_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
+```
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run preview
+```
+
+## Estructura general
+
+- `src/App.tsx`: orquestación principal de la app.
+- `src/components/`: componentes de interfaz como `Header`, `Sidebar`, `GlossaryView` y formularios/modales.
+- `src/services/`: lógica de Supabase y subida de imágenes.
+- `src/types/`: tipos compartidos de la aplicación.
+
+## Notas de Supabase
+
+La tabla `glossary_terms` debe incluir, al menos, estas columnas:
+
+- `id`
+- `title`
+- `description`
+- `category`
+- `image_label`
+- `image_url`
+- `created_at`
+- `updated_at`
+
+También debe existir la policy de `SELECT`, `INSERT` y `UPDATE` para el rol que uses desde el cliente si quieres editar términos desde la UI.
+
+## Desarrollo
+
+1. Instala dependencias.
+2. Configura `.env.local`.
+3. Ejecuta:
+
+```bash
+npm run dev
+```
+
+## Build
+
+Para generar la versión de producción:
+
+```bash
+npm run build
+```
+
+## Preview
+
+Para previsualizar el build localmente:
+
+```bash
+npm run preview
 ```
