@@ -104,3 +104,72 @@ export async function createTerm(input: NewGlossaryTermInput): Promise<GlossaryT
 
   return mapDbTerm(data as DbTerm)
 }
+
+export async function updateTerm(id: string, input: NewGlossaryTermInput): Promise<GlossaryTerm> {
+  const client = getSupabaseClient()
+
+  let imageUrl = input.imageUrl ?? null
+  if (input.imageFile) {
+    imageUrl = await uploadImage(input.imageFile)
+  }
+
+  const updatePayload: {
+    title: string
+    description: string
+    category: 'tecnica' | 'ingrediente' | 'maridaje' | 'termino'
+    image_label: string | null
+  } = {
+    title: input.title.trim(),
+    description: input.description.trim(),
+    category: mapCategoryForDb(input.category),
+    image_label: input.imageLabel?.trim() || null,
+  }
+
+  const { data: updateResult, error: updateError } = await client
+    .from('glossary_terms')
+    .update(updatePayload)
+    .eq('id', id)
+    .select('id')
+    .maybeSingle()
+
+  if (updateError) {
+    throw new Error(`No se pudo actualizar el termino: ${updateError.message}`)
+  }
+
+  if (!updateResult) {
+    throw new Error('La actualización no afectó ninguna fila (id no encontrado o policy bloquea el UPDATE).')
+  }
+
+  if (imageUrl !== undefined) {
+    const { data: imageUpdateResult, error: imageUpdateError } = await client
+      .from('glossary_terms')
+      .update({ image_url: imageUrl })
+      .eq('id', id)
+      .select('id')
+      .maybeSingle()
+
+    if (imageUpdateError) {
+      throw new Error(`No se pudo actualizar la imagen del termino: ${imageUpdateError.message}`)
+    }
+
+    if (!imageUpdateResult) {
+      throw new Error('La actualización de la imagen no afectó filas (id no encontrado o policy bloquea el UPDATE).')
+    }
+  }
+
+  const { data, error: fetchError } = await client
+    .from('glossary_terms')
+    .select('id, title, description, category, image_label, image_url, created_at')
+    .eq('id', id)
+    .maybeSingle()
+
+  if (fetchError) {
+    throw new Error(`No se pudo actualizar el termino: ${fetchError.message}`)
+  }
+
+  if (!data) {
+    throw new Error('No se encontró el término para actualizar.')
+  }
+
+  return mapDbTerm(data as DbTerm)
+}
