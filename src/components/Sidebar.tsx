@@ -1,4 +1,4 @@
-import coilMxColLogo from '../assets/COL+MX.png'
+import coilMxColLogo from '../assets/icon.png'
 import type { SectionId } from './AppShell'
 
 const navItems = [
@@ -23,8 +23,8 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         </h1>
 
         <div className="mt-5 rounded-xl border border-[#e2d7c6] bg-[#fff9ee] p-3">
-          <img src={coilMxColLogo} alt="COIL MX - COL" className="block w-37.5 max-w-full rounded-full border-4 border-[#83111a]" />
-          <p className="mt-2 text-[0.83rem] text-[#7f746b]">Explora el patrimonio culinario</p>
+          <img src={coilMxColLogo} alt="icon" className="mx-auto block w-37.5 max-w-full rounded-lg" />
+          <p className="mt-2 text-center text-[0.83rem] text-[#7f746b]">Explora el patrimonio culinario</p>
         </div>
       </div>
 
