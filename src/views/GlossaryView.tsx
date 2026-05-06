@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { GlossaryCard } from './GlossaryCard'
-import { Modal } from './Modal'
-import { NewTermModal } from './NewTermModal'
+
+import { GlossaryCard } from '../components/common/GlossaryCard'
+import { Modal } from '../components/common/Modal'
+import { NewTermModal } from '../features/terms/NewTermModal'
+import { canEditTerm } from '../features/terms/termViewHelpers'
 import type { GlossaryTerm, TermCategory } from '../types/term'
 
 type GlossaryViewProps = {
@@ -12,7 +14,6 @@ type GlossaryViewProps = {
 
 type SelectedTerm = GlossaryTerm | null
 
-// Orden de categorías y sus etiquetas personalizadas
 const CATEGORY_CONFIG: Record<TermCategory, { label: string; order: number; icon: string }> = {
   Ingrediente: { label: '🥘 Ingredientes', order: 1, icon: '🥘' },
   Tecnica: { label: '🔪 Técnicas', order: 2, icon: '🔪' },
@@ -32,16 +33,11 @@ function groupAndSortTerms(items: GlossaryTerm[]): Record<TermCategory, Glossary
     grouped[item.category].push(item)
   })
 
-  // Ordenar cada grupo alfabéticamente por título
   Object.keys(grouped).forEach((key) => {
     grouped[key as TermCategory].sort((a, b) => a.title.localeCompare(b.title, 'es'))
   })
 
   return grouped
-}
-
-function canEditTerm(term: GlossaryTerm) {
-  return !term.id.startsWith('fallback-')
 }
 
 export function GlossaryView({ items, infoMessage, onTermUpdated }: GlossaryViewProps) {
@@ -122,11 +118,7 @@ export function GlossaryView({ items, infoMessage, onTermUpdated }: GlossaryView
         </div>
       )}
 
-      <Modal
-        isOpen={!!selectedTerm}
-        onClose={() => setSelectedTerm(null)}
-        title={selectedTerm?.title || ''}
-      >
+      <Modal isOpen={!!selectedTerm} onClose={() => setSelectedTerm(null)} title={selectedTerm?.title || ''}>
         {selectedTerm && (
           <div className="space-y-4">
             {selectedTerm.imageUrl && (
@@ -134,7 +126,7 @@ export function GlossaryView({ items, infoMessage, onTermUpdated }: GlossaryView
                 <img
                   src={selectedTerm.imageUrl}
                   alt={selectedTerm.title}
-                  className="w-full h-auto object-cover max-h-80"
+                  className="h-auto max-h-80 w-full object-cover"
                 />
               </div>
             )}

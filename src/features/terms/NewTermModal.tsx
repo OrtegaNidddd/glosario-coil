@@ -1,6 +1,6 @@
-import { Modal } from './Modal'
+import { Modal } from '../../components/common/Modal'
 import { NewTermForm } from './NewTermForm'
-import type { GlossaryTerm } from '../types/term'
+import type { GlossaryTerm } from '../../types/term'
 
 type NewTermModalProps = {
   isOpen: boolean
@@ -33,7 +33,12 @@ export function NewTermModal({
       onClose={onClose}
       title={termToEdit ? 'Editar término' : 'Agregar nuevo término'}
     >
-      <NewTermForm onCreated={handleTermCreated} onUpdated={handleTermUpdated} termToEdit={termToEdit} />
+      <NewTermForm
+        key={termToEdit?.id ?? 'new'}
+        onCreated={handleTermCreated}
+        onUpdated={handleTermUpdated}
+        termToEdit={termToEdit}
+      />
     </Modal>
   )
 }

@@ -1,4 +1,4 @@
-import coilMxColLogo from '../assets/icon.png'
+import coilMxColLogo from '../../assets/icon.png'
 import type { SectionId } from './AppShell'
 
 const navItems = [
@@ -16,7 +16,7 @@ type SidebarProps = {
 
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   return (
-    <aside className="flex flex-col justify-start gap-4 border-b border-[#e2d7c6] bg-[#f3ecde] px-4 py-5 lg:border-r lg:border-b-0">
+    <aside className="flex flex-col justify-start gap-4 border-b border-[#e2d7c6] bg-[#f3ecde] px-4 py-5 lg:border-b-0 lg:border-r">
       <div>
         <h1 className="font-['Fraunces'] text-[1.95rem] leading-[1.03] font-bold tracking-[-0.02em] text-[#83111a]">
           Sabor y Cultura

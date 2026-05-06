@@ -70,7 +70,7 @@ export function GlossaryCard({
   return (
     <article
       onClick={onClick}
-      className="relative isolate min-h-80 overflow-hidden rounded-[14px] bg-[#2d2521] shadow-[0_10px_24px_rgba(30,18,7,0.22)] cursor-pointer transition hover:shadow-[0_15px_35px_rgba(30,18,7,0.35)]"
+      className="relative isolate min-h-80 cursor-pointer overflow-hidden rounded-[14px] bg-[#2d2521] shadow-[0_10px_24px_rgba(30,18,7,0.22)] transition hover:shadow-[0_15px_35px_rgba(30,18,7,0.35)]"
     >
       <img src={imageUrl} alt={title} className="absolute inset-0 h-full w-full object-cover" />
 

@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
-import { NewTermModal } from './NewTermModal'
-import type { GlossaryTerm } from '../types/term'
+import { NewTermModal } from '../../features/terms/NewTermModal'
+import type { GlossaryTerm } from '../../types/term'
 
 export type SectionId = 'glosario' | 'tecnicas' | 'ingredientes' | 'maridajes' | 'terminos'
 
@@ -41,7 +41,7 @@ export function AppShell({
             onSearchQueryChange={onSearchQueryChange}
             onOpenNewTermModal={onModalOpen}
           />
-          <main className="flex-1 px-4 pt-6 pb-9 sm:px-6">{children}</main>
+          <main className="flex-1 px-4 pb-9 pt-6 sm:px-6">{children}</main>
 
           <footer className="flex flex-col gap-3 border-t border-[#e2d7c6] bg-[#f6efdf] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <div>
@@ -54,11 +54,7 @@ export function AppShell({
         </div>
       </div>
 
-      <NewTermModal
-        isOpen={isModalOpen}
-        onClose={onModalClose}
-        onTermCreated={onTermCreated}
-      />
+      <NewTermModal isOpen={isModalOpen} onClose={onModalClose} onTermCreated={onTermCreated} />
     </div>
   )
 }

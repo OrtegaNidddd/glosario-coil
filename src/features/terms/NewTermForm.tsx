@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { createTerm, updateTerm } from '../services/termsService'
-import type { GlossaryTerm, TermCategory } from '../types/term'
+import { createTerm, updateTerm } from '../../services/termsService'
+import type { GlossaryTerm, TermCategory } from '../../types/term'
 
 type NewTermFormProps = {
   onCreated?: (term: GlossaryTerm) => void
@@ -50,12 +50,6 @@ export function NewTermForm({ onCreated, onUpdated, termToEdit }: NewTermFormPro
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
-
-  useEffect(() => {
-    setForm(createInitialState(termToEdit))
-    setError(null)
-    setSuccess(null)
-  }, [termToEdit])
 
   useEffect(() => {
     return () => {

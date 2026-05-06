@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { AppShell, type SectionId } from './components/AppShell'
-import { IngredientsView } from './components/IngredientsView'
-import { TechniquesView } from './components/TechniquesView'
-import { GlossaryView } from './components/GlossaryView'
-import { MaridajesView } from './components/MaridajesView'
-import { TerminosView } from './components/TerminosView'
+import { AppShell, type SectionId } from './components/layout/AppShell'
+import { IngredientsView } from './views/IngredientsView'
+import { TechniquesView } from './views/TechniquesView'
+import { GlossaryView } from './views/GlossaryView'
+import { MaridajesView } from './views/MaridajesView'
+import { TerminosView } from './views/TerminosView'
 import { getTerms } from './services/termsService'
 import { hasSupabaseCredentials } from './services/supabaseClient'
 import type { GlossaryTerm } from './types/term'
@@ -138,10 +138,18 @@ function App() {
       {activeSection === 'glosario' ? (
         <GlossaryView items={filteredItems} infoMessage={loadError} onTermUpdated={handleTermUpdated} />
       ) : null}
-      {activeSection === 'tecnicas' ? <TechniquesView items={filteredItems} /> : null}
-      {activeSection === 'ingredientes' ? <IngredientsView items={filteredItems} /> : null}
-      {activeSection === 'maridajes' ? <MaridajesView items={filteredItems} /> : null}
-      {activeSection === 'terminos' ? <TerminosView items={filteredItems} /> : null}
+      {activeSection === 'tecnicas' ? (
+        <TechniquesView items={filteredItems} onTermUpdated={handleTermUpdated} />
+      ) : null}
+      {activeSection === 'ingredientes' ? (
+        <IngredientsView items={filteredItems} onTermUpdated={handleTermUpdated} />
+      ) : null}
+      {activeSection === 'maridajes' ? (
+        <MaridajesView items={filteredItems} onTermUpdated={handleTermUpdated} />
+      ) : null}
+      {activeSection === 'terminos' ? (
+        <TerminosView items={filteredItems} onTermUpdated={handleTermUpdated} />
+      ) : null}
     </AppShell>
   )
 }

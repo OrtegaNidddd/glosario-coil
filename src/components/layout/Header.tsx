@@ -1,5 +1,5 @@
-import coilMxLogo from '../assets/LOGO COIL MX.jpeg'
-import fescLogo from '../assets/logo-FESC.png'
+import coilMxLogo from '../../assets/LOGO COIL MX.jpeg'
+import fescLogo from '../../assets/logo-FESC.png'
 
 type HeaderProps = {
   searchQuery: string
@@ -28,11 +28,11 @@ export function Header({ searchQuery, onSearchQueryChange, onOpenNewTermModal }:
         />
       </div>
 
-      <div className="flex items-center gap-2 justify-end lg:gap-3 shrink-0">
+      <div className="flex shrink-0 items-center justify-end gap-2 lg:gap-3">
         <button
           type="button"
           onClick={onOpenNewTermModal}
-          className="flex items-center justify-center gap-2 rounded-lg bg-[#83111a] px-2 py-2 lg:px-4 lg:py-2.5 text-xs lg:text-sm font-semibold text-white transition hover:bg-[#a81724] active:scale-95 shadow-md hover:shadow-lg shrink-0"
+          className="flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#83111a] px-2 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#a81724] hover:shadow-lg active:scale-95 lg:px-4 lg:py-2.5 lg:text-sm"
           aria-label="Agregar nuevo término"
         >
           <svg className="h-4 w-4 lg:h-5 lg:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,16 +40,8 @@ export function Header({ searchQuery, onSearchQueryChange, onOpenNewTermModal }:
           </svg>
           <span className="hidden lg:inline">Agregar Término</span>
         </button>
-        <img
-          src={coilMxLogo}
-          alt="Logo Mexico"
-          className="h-16 lg:h-20 w-auto object-contain shrink-0"
-        />
-        <img 
-          src={fescLogo} 
-          alt="Logo FESC" 
-          className="h-16 lg:h-20 w-auto object-contain shrink-0" 
-        />
+        <img src={coilMxLogo} alt="Logo Mexico" className="h-16 w-auto shrink-0 object-contain lg:h-20" />
+        <img src={fescLogo} alt="Logo FESC" className="h-16 w-auto shrink-0 object-contain lg:h-20" />
       </div>
     </header>
   )
