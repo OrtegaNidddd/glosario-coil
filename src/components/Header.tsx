@@ -28,20 +28,28 @@ export function Header({ searchQuery, onSearchQueryChange, onOpenNewTermModal }:
         />
       </div>
 
-      <div className="flex items-center gap-3 self-end lg:self-auto">
+      <div className="flex items-center gap-2 justify-end lg:gap-3 shrink-0">
         <button
           type="button"
           onClick={onOpenNewTermModal}
-          className="rounded-full bg-[#83111a] p-3 text-sm font-semibold text-white transition hover:bg-[#a81724]"
+          className="flex items-center justify-center gap-2 rounded-lg bg-[#83111a] px-2 py-2 lg:px-4 lg:py-2.5 text-xs lg:text-sm font-semibold text-white transition hover:bg-[#a81724] active:scale-95 shadow-md hover:shadow-lg shrink-0"
+          aria-label="Agregar nuevo término"
         >
-          +
+          <svg className="h-4 w-4 lg:h-5 lg:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          <span className="hidden lg:inline">Agregar Término</span>
         </button>
         <img
           src={coilMxLogo}
           alt="Logo Mexico"
-          className="h-15 w-auto object-contain"
+          className="h-14 lg:h-16 w-auto object-contain shrink-0"
         />
-        <img src={fescLogo} alt="Logo FESC" className="h-15 w-auto object-contain" />
+        <img 
+          src={fescLogo} 
+          alt="Logo FESC" 
+          className="h-14 lg:h-16 w-auto object-contain shrink-0" 
+        />
       </div>
     </header>
   )

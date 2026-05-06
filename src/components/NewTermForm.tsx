@@ -88,20 +88,20 @@ export function NewTermForm({ onCreated }: NewTermFormProps) {
   }
 
   return (
-    <section className="mt-6 rounded-2xl border border-[#e2d7c6] bg-[#fff9ee] p-4 shadow-sm">
+    <section className="w-full">
       <h3 className="font-['Fraunces'] text-xl font-bold text-[#83111a]">Nuevo termino</h3>
       <p className="mt-1 text-sm text-[#6d5e53]">
         Completa el formulario para guardar un termino en Supabase.
       </p>
 
-      <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={handleSubmit}>
+      <form className="mt-4 grid gap-3 grid-cols-1 sm:grid-cols-2" onSubmit={handleSubmit}>
         <label className="flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
           Titulo
           <input
             type="text"
             value={form.title}
             onChange={(event) => setForm((prev) => ({ ...prev, title: event.target.value }))}
-            className="rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
+            className="w-full rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
             placeholder="Ej. Confitado"
             required
           />
@@ -114,7 +114,7 @@ export function NewTermForm({ onCreated }: NewTermFormProps) {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, category: event.target.value as TermCategory }))
             }
-            className="rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
+            className="w-full rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
           >
             <option value="Termino">Termino</option>
             <option value="Tecnica">Tecnica</option>
@@ -123,44 +123,44 @@ export function NewTermForm({ onCreated }: NewTermFormProps) {
           </select>
         </label>
 
-        <label className="sm:col-span-2 flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
+        <label className="col-span-1 sm:col-span-2 flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
           Descripcion
           <textarea
             value={form.description}
             onChange={(event) => setForm((prev) => ({ ...prev, description: event.target.value }))}
-            className="min-h-28 rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
+            className="w-full min-h-28 rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
             placeholder="Describe el termino gastronomico..."
             required
           />
         </label>
 
-        <label className="sm:col-span-2 flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
+        <label className="col-span-1 sm:col-span-2 flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
           Texto para placeholder de imagen (opcional)
           <input
             type="text"
             value={form.imageLabel}
             onChange={(event) => setForm((prev) => ({ ...prev, imageLabel: event.target.value }))}
-            className="rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
+            className="w-full rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
             placeholder="Ej. Espacio para foto de confitado"
           />
         </label>
 
-        <label className="sm:col-span-2 flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
+        <label className="col-span-1 sm:col-span-2 flex flex-col gap-1 text-sm font-semibold text-[#5a4d43]">
           Imagen (max 5MB - JPG, PNG, WebP, GIF)
           <input
             type="file"
             accept="image/jpeg,image/png,image/webp,image/gif"
             onChange={handleImageChange}
-            className="rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
+            className="w-full rounded-lg border border-[#dccdb6] bg-white px-3 py-2 text-sm font-medium outline-none ring-[#c06725] focus:ring-2"
           />
         </label>
 
         {form.imagePreview ? (
-          <div className="sm:col-span-2 flex flex-col gap-2">
+          <div className="col-span-1 sm:col-span-2 flex flex-col gap-2">
             <img
               src={form.imagePreview}
               alt="Preview"
-              className="h-40 w-auto rounded-lg border border-[#dccdb6] object-cover"
+              className="w-full max-h-40 rounded-lg border border-[#dccdb6] object-cover"
             />
             <button
               type="button"
@@ -172,7 +172,7 @@ export function NewTermForm({ onCreated }: NewTermFormProps) {
           </div>
         ) : null}
 
-        <div className="sm:col-span-2 flex items-center justify-between gap-3">
+        <div className="col-span-1 sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <button
             type="submit"
             disabled={isSubmitting}
@@ -185,7 +185,7 @@ export function NewTermForm({ onCreated }: NewTermFormProps) {
         </div>
 
         {error ? (
-          <p className="sm:col-span-2 rounded-lg border border-[#e7bfbf] bg-[#fff1f1] px-3 py-2 text-sm text-[#8f2222]">
+          <p className="col-span-1 sm:col-span-2 rounded-lg border border-[#e7bfbf] bg-[#fff1f1] px-3 py-2 text-sm text-[#8f2222]">
             {error}
           </p>
         ) : null}
